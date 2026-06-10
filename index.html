@@ -17,10 +17,14 @@
   --accent: #00ff88;
   --accent2: #00d4ff;
   --accent3: #ffcc00;
+  --red: #ff6b6b;
   --border: #222;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
@@ -41,267 +45,157 @@ nav {
   display: flex; align-items: center; justify-content: space-between;
 }
 nav .logo { font-weight: 700; font-size: 15px; color: var(--accent); letter-spacing: -0.5px; }
-nav .links { display: flex; gap: 28px; }
-nav .links a { color: var(--text-dim); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
-nav .links a:hover { color: var(--text); }
+nav .links { display: flex; gap: 24px; }
+nav .links a { color: var(--text-dim); text-decoration: none; font-size: 12px; font-weight: 500; transition: color 0.2s; letter-spacing: 0.5px; }
+nav .links a:hover, nav .links a.active { color: var(--text); }
+
+/* ===== PAGE INDICATOR ===== */
+.page-indicator {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 10px;
+}
+.page-indicator .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.3s; cursor: pointer;
+}
+.page-indicator .dot.active { background: var(--accent); box-shadow: 0 0 8px rgba(0,255,136,0.5); transform: scale(1.3); }
 
 /* ===== SECTIONS ===== */
 section {
-  min-height: 100vh;
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex; align-items: center; justify-content: center;
-  padding: 100px 40px;
+  padding: 80px 40px;
   position: relative;
+  overflow: hidden;
 }
 
 .container { max-width: 960px; width: 100%; }
 
 /* ===== HERO ===== */
 .hero {
-  min-height: 100vh;
-  text-align: center;
-  flex-direction: column;
+  text-align: center; flex-direction: column;
   background: url('images/hero-bg.png') center/cover no-repeat, radial-gradient(ellipse at 50% 30%, rgba(0,255,136,0.06) 0%, transparent 70%);
 }
 .hero .tag {
   display: inline-block;
-  background: rgba(0,255,136,0.1);
-  border: 1px solid rgba(0,255,136,0.2);
-  color: var(--accent);
-  font-size: 12px; font-weight: 600;
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 32px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2);
+  color: var(--accent); font-size: 11px; font-weight: 600;
+  padding: 6px 16px; border-radius: 100px; margin-bottom: 28px;
+  letter-spacing: 1.5px; text-transform: uppercase;
 }
 .hero h1 {
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 900;
-  line-height: 1.15;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
+  font-size: clamp(36px, 5.5vw, 64px); font-weight: 900;
+  line-height: 1.15; letter-spacing: -2px; margin-bottom: 20px;
 }
 .hero h1 .highlight { color: var(--accent); }
-.hero .sub {
-  font-size: 18px;
-  color: var(--text-dim);
-  max-width: 560px;
-  margin: 0 auto 40px;
-  font-weight: 400;
-}
+.hero .sub { font-size: 17px; color: var(--text-dim); max-width: 520px; margin: 0 auto 36px; }
 .hero .time-badge {
   display: inline-flex; align-items: center; gap: 10px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 28px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
 }
 .hero .time-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 /* ===== SECTION HEADERS ===== */
-.section-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-.section-title {
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -1.5px;
-  margin-bottom: 20px;
-}
-.section-desc {
-  font-size: 16px;
-  color: var(--text-dim);
-  max-width: 600px;
-  margin-bottom: 48px;
-}
+.section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 10px; }
+.section-title { font-size: clamp(26px, 3.5vw, 44px); font-weight: 800; line-height: 1.2; letter-spacing: -1.5px; margin-bottom: 16px; }
+.section-desc { font-size: 15px; color: var(--text-dim); max-width: 580px; margin-bottom: 36px; }
+.divider { width: 50px; height: 2px; background: linear-gradient(to right, var(--accent), var(--accent2)); margin: 0 0 24px; }
 
 /* ===== STATS GRID ===== */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 40px;
-}
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 32px; }
 .stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
-  transition: border-color 0.3s;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px 20px; text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
 }
-.stat-card:hover { border-color: var(--accent); }
-.stat-card .num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 8px;
-}
+.stat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.stat-card .num { font-family: 'JetBrains Mono', monospace; font-size: 42px; font-weight: 700; line-height: 1; margin-bottom: 6px; }
 .stat-card .num.cyan { color: var(--accent2); }
 .stat-card .num.green { color: var(--accent); }
 .stat-card .num.yellow { color: var(--accent3); }
-.stat-card .label { font-size: 14px; color: var(--text-dim); }
+.stat-card .num.red { color: var(--red); }
+.stat-card .label { font-size: 13px; color: var(--text-dim); }
 
 /* ===== TIMELINE ===== */
-.timeline { position: relative; padding-left: 40px; }
-.timeline::before {
-  content: '';
-  position: absolute; left: 12px; top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent2));
-  opacity: 0.3;
-}
-.tl-item { position: relative; margin-bottom: 40px; }
-.tl-item::before {
-  content: '';
-  position: absolute; left: -34px; top: 6px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(0,255,136,0.4);
-}
-.tl-item .time {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 4px;
-}
-.tl-item .title { font-weight: 700; font-size: 18px; margin-bottom: 4px; }
-.tl-item .desc { font-size: 14px; color: var(--text-dim); }
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,var(--accent),var(--accent2)); opacity:0.3; }
+.tl-item { position: relative; margin-bottom: 28px; }
+.tl-item::before { content:''; position:absolute; left:-32px; top:5px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px rgba(0,255,136,0.4); }
+.tl-item .time { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); margin-bottom:2px; }
+.tl-item .title { font-weight:700; font-size:16px; margin-bottom:2px; }
+.tl-item .desc { font-size:13px; color:var(--text-dim); }
 
 /* ===== FIX TABLE ===== */
-.fix-table { width: 100%; border-collapse: collapse; margin-top: 32px; }
-.fix-table th {
-  text-align: left;
-  font-size: 12px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.fix-table td {
-  padding: 16px;
-  border-bottom: 1px solid rgba(34,34,34,0.5);
-  font-size: 14px;
-  vertical-align: top;
-}
-.fix-table tr:hover { background: rgba(0,255,136,0.02); }
-.fix-table .problem { color: #ff6b6b; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
-.fix-table .solution { color: var(--accent); }
+.fix-table { width:100%; border-collapse:collapse; margin-top:24px; }
+.fix-table th { text-align:left; font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; padding:10px 12px; border-bottom:1px solid var(--border); }
+.fix-table td { padding:12px; border-bottom:1px solid rgba(34,34,34,0.5); font-size:13px; vertical-align:top; }
+.fix-table tr:hover { background:rgba(0,255,136,0.02); }
+.fix-table .problem { color:var(--red); font-family:'JetBrains Mono',monospace; font-size:12px; }
+.fix-table .solution { color:var(--accent); }
 
 /* ===== COMPARE ===== */
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 32px;
-}
-.compare-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-}
-.compare-card.old { border-color: rgba(255,107,107,0.3); }
-.compare-card.new { border-color: rgba(0,255,136,0.3); }
-.compare-card h3 { font-size: 16px; margin-bottom: 20px; }
-.compare-card .item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(34,34,34,0.5); font-size: 14px; }
-.compare-card .item:last-child { border: none; }
-.compare-card .item .val { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
-
-/* ===== IMAGE SECTION ===== */
-.img-showcase {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  margin-top: 32px;
-  overflow: hidden;
-}
-.img-showcase img { width: 100%; display: block; }
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:28px; }
+.compare-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:28px; }
+.compare-card.old { border-color:rgba(255,107,107,0.3); }
+.compare-card.new { border-color:rgba(0,255,136,0.3); }
+.compare-card h3 { font-size:15px; margin-bottom:16px; }
+.compare-card .item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(34,34,34,0.5); font-size:13px; }
+.compare-card .item:last-child { border:none; }
+.compare-card .item .val { font-family:'JetBrains Mono',monospace; font-weight:600; }
 
 /* ===== CODE BLOCK ===== */
 .code-block {
-  background: #0d1117;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 1.8;
-  overflow-x: auto;
-  margin-top: 24px;
+  background:#0d1117; border:1px solid var(--border); border-radius:10px;
+  padding:20px; font-family:'JetBrains Mono',monospace; font-size:12px;
+  line-height:1.8; overflow-x:auto; margin-top:20px;
 }
-.code-block .comment { color: #6a737d; }
-.code-block .keyword { color: #ff7b72; }
-.code-block .string { color: #a5d6ff; }
-.code-block .success { color: var(--accent); }
+.code-block .comment { color:#6a737d; }
+.code-block .success { color:var(--accent); }
+.code-block .err { color:var(--red); }
+.code-block .fix { color:var(--accent2); }
+
+/* ===== TWO COL ===== */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+
+/* ===== CARD LIST ===== */
+.card-list { display:flex; flex-direction:column; gap:14px; }
+.card-item {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+  padding:20px; display:flex; gap:16px; align-items:flex-start;
+  transition: border-color 0.3s;
+}
+.card-item:hover { border-color:var(--accent); }
+.card-item .icon { font-size:24px; flex-shrink:0; width:40px; text-align:center; }
+.card-item .body { flex:1; }
+.card-item .body h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+.card-item .body p { font-size:13px; color:var(--text-dim); line-height:1.6; }
 
 /* ===== CTA ===== */
-.cta-section {
-  text-align: center;
-  background: radial-gradient(ellipse at 50% 50%, rgba(0,255,136,0.04) 0%, transparent 70%);
-}
-.cta-section .quote {
-  font-size: clamp(24px, 3.5vw, 42px);
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: -1px;
-  max-width: 700px;
-  margin: 0 auto 20px;
-}
-.cta-section .sub-quote {
-  font-size: 16px;
-  color: var(--text-dim);
-  margin-bottom: 40px;
-}
+.cta-section { text-align:center; background:radial-gradient(ellipse at 50% 50%, rgba(0,255,136,0.04) 0%, transparent 70%); }
+.cta-section .quote { font-size:clamp(22px,3vw,38px); font-weight:800; line-height:1.3; letter-spacing:-1px; max-width:650px; margin:0 auto 16px; }
+.cta-section .sub-quote { font-size:15px; color:var(--text-dim); margin-bottom:32px; }
 
 /* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 40px;
-  font-size: 12px;
-  color: var(--text-dim);
-  border-top: 1px solid var(--border);
-}
-footer a { color: var(--accent); text-decoration: none; }
-
-/* ===== DIVIDER ===== */
-.divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(to right, var(--accent), var(--accent2));
-  margin: 0 0 32px;
-}
+footer { text-align:center; padding:32px; font-size:11px; color:var(--text-dim); border-top:1px solid var(--border); }
+footer a { color:var(--accent); text-decoration:none; }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  section { padding: 80px 20px; }
-  nav { padding: 0 20px; }
-  .compare-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
+@media (max-width:768px) {
+  section { padding:60px 20px; }
+  nav { padding:0 16px; }
+  .compare-grid, .two-col { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .page-indicator { display:none; }
 }
 
 /* ===== ANIMATIONS ===== */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body>
@@ -310,16 +204,20 @@ footer a { color: var(--accent); text-decoration: none; }
 <nav>
   <div class="logo">Codex Demo</div>
   <div class="links">
-    <a href="#result">结果</a>
-    <a href="#story">过程</a>
-    <a href="#fixes">改动</a>
-    <a href="#compare">对比</a>
-    <a href="#value">推广</a>
+    <a href="#s01">结果</a>
+    <a href="#s03">故事</a>
+    <a href="#s05">配置</a>
+    <a href="#s07">改动</a>
+    <a href="#s09">对比</a>
+    <a href="#s11">推广</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="top">
+<!-- PAGE INDICATOR -->
+<div class="page-indicator" id="pageIndicator"></div>
+
+<!-- PAGE 0: HERO -->
+<section class="hero" id="s00">
   <div class="container">
     <div class="tag">Huawei · Pangu 92B · 昇腾 910C</div>
     <h1>睡觉时<br>AI 改了 <span class="highlight">15</span> 个文件</h1>
@@ -331,88 +229,180 @@ footer a { color: var(--accent); text-decoration: none; }
   </div>
 </section>
 
-<!-- RESULT -->
-<section id="result">
+<!-- PAGE 1: 结果 -->
+<section id="s01">
   <div class="container fade-in">
     <div class="section-num">01 / Result</div>
-    <div class="section-title">结果</div>
+    <div class="section-title">结果：核心链路全通</div>
     <div class="divider"></div>
     <div class="code-block">
       <span class="comment"># 核心验证链路</span><br>
-      vLLM 启动 &rarr; completion 生成 &rarr; task 分发 &rarr; trajectory 获取 &rarr; reward 执行 &rarr; 训练数据准备 &rarr; actor 更新<br><br>
-      <span class="success">&#10003; 全部通过</span>
+      vLLM 启动 → completion 生成 → task 分发 → trajectory 获取 → reward 执行 → 训练数据准备 → actor 更新<br><br>
+      <span class="success">✓ 全部通过</span>
     </div>
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="num cyan">13h</div>
-        <div class="label">AI 自主运行</div>
+      <div class="stat-card"><div class="num cyan">13h</div><div class="label">AI 自主运行</div></div>
+      <div class="stat-card"><div class="num green">20</div><div class="label">拉起训练次数</div></div>
+      <div class="stat-card"><div class="num yellow">15</div><div class="label">改动文件数</div></div>
+      <div class="stat-card"><div class="num green">0</div><div class="label">人工干预</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 2: 故事 - 背景 -->
+<section id="s02">
+  <div class="container fade-in">
+    <div class="section-num">02 / Background</div>
+    <div class="section-title">任务背景</div>
+    <div class="section-desc">把 Pangu 92B（8层剪层）配置迁移到 16die 环境，跑通黑盒 E2E 训练。</div>
+    <div class="two-col">
+      <div>
+        <div class="card-list">
+          <div class="card-item"><div class="icon">🧠</div><div class="body"><h4>模型</h4><p>Pangu 92B，8层剪层（layer 0-1 Dense，layer 2-7 MoE）</p></div></div>
+          <div class="card-item"><div class="icon">💻</div><div class="body"><h4>硬件</h4><p>昇腾 910C，1 die/卡，16 卡 = 16 die</p></div></div>
+          <div class="card-item"><div class="icon">📁</div><div class="body"><h4>改动范围</h4><p>15 个文件，全链路改造（mbridge、精度、trajectory、reward、并行、环境变量、日志）</p></div></div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="num green">20</div>
-        <div class="label">拉起训练次数</div>
-      </div>
-      <div class="stat-card">
-        <div class="num yellow">15</div>
-        <div class="label">改动文件数</div>
-      </div>
-      <div class="stat-card">
-        <div class="num green">0</div>
-        <div class="label">人工干预</div>
+      <div>
+        <div class="card-list">
+          <div class="card-item"><div class="icon">⚙️</div><div class="body"><h4>Rollout 并行</h4><p>TP=8, DP=2, EP=16, ETP=1, PP=1</p></div></div>
+          <div class="card-item"><div class="icon">🔧</div><div class="body"><h4>Actor 并行</h4><p>TP=4, PP=4</p></div></div>
+          <div class="card-item"><div class="icon">🌿</div><div class="body"><h4>分支</h4><p>release_1.2.1</p></div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STORY -->
-<section id="story">
+<!-- PAGE 3: 故事 - 时间线 -->
+<section id="s03">
   <div class="container fade-in">
-    <div class="section-num">02 / Story</div>
+    <div class="section-num">03 / Timeline</div>
     <div class="section-title">发生了什么</div>
     <div class="section-desc">从任务下达到链路全通，36 小时的真实时间线。</div>
     <div class="timeline">
-      <div class="tl-item">
-        <div class="time">6/9 周一 11:30</div>
-        <div class="title">领导布置任务</div>
-        <div class="desc">Pangu 92B（8层剪层）迁移到 16die 环境，跑通黑盒 E2E 训练</div>
+      <div class="tl-item"><div class="time">6/9 周一 11:30</div><div class="title">领导布置任务</div><div class="desc">Pangu 92B 迁移到 16die 环境，跑通黑盒 E2E 训练</div></div>
+      <div class="tl-item"><div class="time">6/9 周一下午</div><div class="title">Codex 辅助改动</div><div class="desc">建立上下文，部分文件已修改</div></div>
+      <div class="tl-item"><div class="time">6/10 周二下午</div><div class="title">开发环境切换</div><div class="desc">终端断开，任务停滞</div></div>
+      <div class="tl-item"><div class="time">6/10 周二 20:18</div><div class="title">手机发送指令</div><div class="desc">"继续完成下午的减层调试"，然后去睡觉了</div></div>
+      <div class="tl-item"><div class="time">6/11 周三 09:30</div><div class="title">打开电脑验证</div><div class="desc">核心链路全通</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 4: 什么是 Codex -->
+<section id="s04">
+  <div class="container fade-in">
+    <div class="section-num">04 / What is Codex</div>
+    <div class="section-title">什么是 Codex</div>
+    <div class="section-desc">OpenAI 的长程运行 AI Agent，能自主拉代码、读日志、改代码、跑训练。</div>
+    <div class="two-col">
+      <div>
+        <div class="code-block">
+          <span class="comment"># Codex 的工作循环</span><br><br>
+          <span class="fix">拉代码</span> → <span class="fix">读配置</span> → <span class="fix">改代码</span><br>
+          → <span class="fix">跑训练</span> → <span class="fix">看日志</span><br>
+          → <span class="fix">定位问题</span> → <span class="fix">修复</span> → <span class="fix">重跑</span><br><br>
+          <span class="comment"># 和工程师一模一样</span><br>
+          <span class="comment"># 区别：它不会累，不会刷手机</span>
+        </div>
       </div>
-      <div class="tl-item">
-        <div class="time">6/9 周一下午</div>
-        <div class="title">Codex 辅助改动</div>
-        <div class="desc">建立上下文，部分文件已修改</div>
-      </div>
-      <div class="tl-item">
-        <div class="time">6/10 周二下午</div>
-        <div class="title">开发环境切换</div>
-        <div class="desc">终端断开，任务停滞</div>
-      </div>
-      <div class="tl-item">
-        <div class="time">6/10 周二 20:18</div>
-        <div class="title">手机发送指令</div>
-        <div class="desc">"继续完成下午的减层调试"，然后去睡觉了</div>
-      </div>
-      <div class="tl-item">
-        <div class="time">6/11 周三 09:30</div>
-        <div class="title">打开电脑验证</div>
-        <div class="desc">核心链路全通，20 次迭代，15 个文件改动，0 次人工干预</div>
+      <div>
+        <div class="card-list">
+          <div class="card-item"><div class="icon">📱</div><div class="body"><h4>手机远程调度</h4><p>SSH 隧道 + 长程运行，手机向内网开发机发指令</p></div></div>
+          <div class="card-item"><div class="icon">🔄</div><div class="body"><h4>自主迭代</h4><p>跑挂了自动看日志、定位、修复、重跑，无需人工干预</p></div></div>
+          <div class="card-item"><div class="icon">🧠</div><div class="body"><h4>上下文延续</h4><p>周二晚上只说了一句"继续"，AI 自动理解任务目标</p></div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FIXES -->
-<section id="fixes">
+<!-- PAGE 5: 配置迁移难点 -->
+<section id="s05">
   <div class="container fade-in">
-    <div class="section-num">03 / Fixes</div>
-    <div class="section-title">Codex 怎么修的</div>
-    <div class="section-desc">它拉起训练，跑挂了，看日志，定位问题，修代码，再拉起。<br>再挂，再看，再改，再拉。20 次，15 个文件。</div>
+    <div class="section-num">05 / Challenges</div>
+    <div class="section-title">配置迁移难点</div>
+    <div class="section-desc">不是算法问题，全是配置通路问题。</div>
+    <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">🔗</div>
+        <div style="font-weight:700; margin-bottom:6px;">mbridge 命名不匹配</div>
+        <div class="label">Megatron 用单数 final_layernorm，映射表只有复数 final_layernorms.0</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">🔢</div>
+        <div style="font-weight:700; margin-bottom:6px;">FP16 精度迁移</div>
+        <div class="label">loss scale 未初始化，precision_aware_optimizer 不兼容</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">📏</div>
+        <div style="font-weight:700; margin-bottom:6px;">Token 长度超限</div>
+        <div class="label">ppo_max_token_len 余量 2048 不够，prompt+response 直接超限</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">🌐</div>
+        <div style="font-weight:700; margin-bottom:6px;">代理环境变量干扰</div>
+        <div class="label">Ray worker 内网通信走代理，不通</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">🧩</div>
+        <div style="font-weight:700; margin-bottom:6px;">Reward 参数格式错误</div>
+        <div class="label">FAIL_TO_PASS 被按字符拆分，需改 JSON 解析</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px;">
+        <div style="font-size:28px; margin-bottom:12px;">❌</div>
+        <div style="font-weight:700; margin-bottom:6px;">多轮 trajectory 处理</div>
+        <div class="label">不处理 None 轮次，直接报 No valid rounds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 6: Codex 修复过程 - 核心 -->
+<section id="s06">
+  <div class="container fade-in">
+    <div class="section-num">06 / Core Fixes</div>
+    <div class="section-title">核心改动（P0）</div>
+    <div class="section-desc">三个最关键的问题，不修就跑不起来。</div>
+    <div class="card-list">
+      <div class="card-item">
+        <div class="icon" style="color:var(--red); font-family:'JetBrains Mono',monospace; font-weight:700;">P0</div>
+        <div class="body">
+          <h4>mbridge 映射兼容</h4>
+          <p>MTP 禁用后，Megatron 用 <code style="color:var(--accent2)">decoder.final_layernorm</code>（单数），但映射表只有 <code style="color:var(--red)">decoder.final_layernorms.0</code>（复数+索引）。Codex 加了一行判断，自动替换。</p>
+        </div>
+      </div>
+      <div class="card-item">
+        <div class="icon" style="color:var(--red); font-family:'JetBrains Mono',monospace; font-weight:700;">P0</div>
+        <div class="body">
+          <h4>FP16 精度配置</h4>
+          <p>添加 <code style="color:var(--accent2)">bf16: false</code> 和 <code style="color:var(--accent2)">fp16: true</code>，初始化 <code style="color:var(--accent2)">grad_scale_func</code>，注释掉 <code style="color:var(--red)">precision_aware_optimizer</code>。</p>
+        </div>
+      </div>
+      <div class="card-item">
+        <div class="icon" style="color:var(--red); font-family:'JetBrains Mono',monospace; font-weight:700;">P0</div>
+        <div class="body">
+          <h4>Token 长度余量</h4>
+          <p>余量从 <code style="color:var(--red)">2048</code> 改为 <code style="color:var(--accent)">16384</code>，避免 prompt+response 超限。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 7: Codex 修复过程 - 全部 -->
+<section id="s07">
+  <div class="container fade-in">
+    <div class="section-num">07 / All Fixes</div>
+    <div class="section-title">全部改动</div>
+    <div class="section-desc">20 次迭代，15 个文件。</div>
     <table class="fix-table">
-      <thead>
-        <tr><th>它看到的</th><th>它怎么修的</th></tr>
-      </thead>
+      <thead><tr><th>它看到的</th><th>它怎么修的</th></tr></thead>
       <tbody>
         <tr><td class="problem">final_layernorms.0 映射报错</td><td class="solution">MTP 禁用时自动替换为 final_layernorm</td></tr>
         <tr><td class="problem">FP16 训练 loss 异常</td><td class="solution">初始化 grad_scale_func</td></tr>
-        <tr><td class="problem">Prompt length exceeds</td><td class="solution">余量 2048 &rarr; 16384</td></tr>
+        <tr><td class="problem">Prompt length exceeds</td><td class="solution">余量 2048 → 16384</td></tr>
         <tr><td class="problem">speculative_config 解析报错</td><td class="solution">加 is_mtp_enabled 前置检查</td></tr>
         <tr><td class="problem">No valid rounds</td><td class="solution">过滤 None 轮次</td></tr>
         <tr><td class="problem">Reward 参数按字符拆分</td><td class="solution">改 JSON 解析</td></tr>
@@ -425,79 +415,78 @@ footer a { color: var(--accent); text-decoration: none; }
   </div>
 </section>
 
-<!-- COMPARE -->
-<section id="compare">
+<!-- PAGE 8: 验证链路 -->
+<section id="s08">
   <div class="container fade-in">
-    <div class="section-num">04 / Compare</div>
+    <div class="section-num">08 / Validation</div>
+    <div class="section-title">验证结果</div>
+    <div class="section-desc">核心链路 7 个节点，全部通过。</div>
+    <div class="card-list">
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>vLLM 启动</h4><p>DP0/DP1 正常启动</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>Completion 生成</h4><p>response_len=512</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>Task 分发</h4><p>dispatch_task_list completed</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>Trajectory 获取</h4><p>Get trajectory success</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>Reward 执行</h4><p>真实 pytest 参数，不再按字符拆分</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>训练数据准备</h4><p>Ready training data: 1/1</p></div></div>
+      <div class="card-item"><div class="icon">✅</div><div class="body"><h4>Actor 更新</h4><p>train after update actor</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 9: 效率对比 -->
+<section id="s09">
+  <div class="container fade-in">
+    <div class="section-num">09 / Compare</div>
     <div class="section-title">效率对比</div>
     <div class="compare-grid">
       <div class="compare-card old">
-        <h3>&#x274C; 传统方式</h3>
+        <h3>❌ 传统方式</h3>
         <div class="item"><span>耗时</span><span class="val">2-3 天</span></div>
         <div class="item"><span>人工</span><span class="val">全程盯着</span></div>
         <div class="item"><span>验证</span><span class="val">改 1 个跑 1 轮</span></div>
         <div class="item"><span>时间</span><span class="val">受限工时</span></div>
       </div>
       <div class="compare-card new">
-        <h3>&#x2705; Codex 自主调试</h3>
+        <h3>✅ Codex 自主调试</h3>
         <div class="item"><span>耗时</span><span class="val" style="color:var(--accent)">13 小时</span></div>
         <div class="item"><span>人工</span><span class="val" style="color:var(--accent)">0 次干预</span></div>
         <div class="item"><span>验证</span><span class="val" style="color:var(--accent)">自动迭代 20 次</span></div>
         <div class="item"><span>时间</span><span class="val" style="color:var(--accent)">24 小时跑</span></div>
       </div>
     </div>
+    <div style="margin-top:28px; text-align:center;">
+      <div class="time-badge" style="margin:0 auto">
+        <span class="dot"></span>
+        <span>一句话：人下班，AI 不下班。</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- VALUE -->
-<section id="value">
+<!-- PAGE 10: 推广价值 -->
+<section id="s10">
   <div class="container fade-in">
-    <div class="section-num">05 / Value</div>
+    <div class="section-num">10 / Value</div>
     <div class="section-title">推广价值</div>
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="num cyan" style="font-size:36px">1.5-2.5d</div>
-        <div class="label">单次调试节省 / 人</div>
-      </div>
-      <div class="stat-card">
-        <div class="num green" style="font-size:36px">15-25d</div>
-        <div class="label">团队 10 人月节省</div>
-      </div>
-      <div class="stat-card">
-        <div class="num yellow" style="font-size:36px">180-300d</div>
-        <div class="label">年化节省人天</div>
-      </div>
+      <div class="stat-card"><div class="num cyan" style="font-size:32px">1.5-2.5d</div><div class="label">单次调试节省 / 人</div></div>
+      <div class="stat-card"><div class="num green" style="font-size:32px">15-25d</div><div class="label">团队 10 人月节省</div></div>
+      <div class="stat-card"><div class="num yellow" style="font-size:32px">180-300d</div><div class="label">年化节省人天</div></div>
     </div>
-    <div style="margin-top:48px">
-      <div class="section-desc" style="margin-bottom:24px">最适合的场景</div>
+    <div style="margin-top:32px">
+      <div class="section-desc" style="margin-bottom:16px">最适合的场景</div>
       <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
-        <div class="stat-card" style="text-align:left">
-          <div style="font-size:20px;margin-bottom:8px">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-          <div style="font-weight:700;margin-bottom:4px">多节点并行迁移</div>
-          <div class="label">本次已验证</div>
-        </div>
-        <div class="stat-card" style="text-align:left">
-          <div style="font-size:20px;margin-bottom:8px">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-          <div style="font-weight:700;margin-bottom:4px">配置迁移 / 适配</div>
-          <div class="label">环境变量、参数调整</div>
-        </div>
-        <div class="stat-card" style="text-align:left">
-          <div style="font-size:20px;margin-bottom:8px">&#11088;&#11088;&#11088;&#11088;</div>
-          <div style="font-weight:700;margin-bottom:4px">日志分析 + 修复</div>
-          <div class="label">读日志→定位→修复闭环</div>
-        </div>
-        <div class="stat-card" style="text-align:left">
-          <div style="font-size:20px;margin-bottom:8px">&#11088;&#11088;&#11088;</div>
-          <div style="font-weight:700;margin-bottom:4px">大规模代码重构</div>
-          <div class="label">多文件协同改动</div>
-        </div>
+        <div class="stat-card" style="text-align:left"><div style="font-size:18px;margin-bottom:6px">⭐⭐⭐⭐⭐</div><div style="font-weight:700;margin-bottom:4px; font-size:14px">多节点并行迁移</div><div class="label">本次已验证</div></div>
+        <div class="stat-card" style="text-align:left"><div style="font-size:18px;margin-bottom:6px">⭐⭐⭐⭐⭐</div><div style="font-weight:700;margin-bottom:4px; font-size:14px">配置迁移 / 适配</div><div class="label">环境变量、参数调整</div></div>
+        <div class="stat-card" style="text-align:left"><div style="font-size:18px;margin-bottom:6px">⭐⭐⭐⭐</div><div style="font-weight:700;margin-bottom:4px; font-size:14px">日志分析 + 修复</div><div class="label">读日志→定位→修复闭环</div></div>
+        <div class="stat-card" style="text-align:left"><div style="font-size:18px;margin-bottom:6px">⭐⭐⭐</div><div style="font-weight:700;margin-bottom:4px; font-size:14px">大规模代码重构</div><div class="label">多文件协同改动</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
+<!-- PAGE 11: CTA -->
+<section class="cta-section" id="s11">
   <div class="container fade-in">
     <div class="quote">"你睡觉时 AI 在干什么？<br>它在帮你改 15 个文件的配置问题。"</div>
     <p class="sub-quote">人下班，AI 不下班。</p>
@@ -505,21 +494,56 @@ footer a { color: var(--accent); text-decoration: none; }
       <span class="dot"></span>
       <span>基于真实复盘数据 · Pangu 92B · 16die · 昇腾 910C</span>
     </div>
+    <p style="margin-top:48px; font-size:13px; color:var(--text-dim);">孙博阳 · 基础大模型部·系统工程实验室 · 2026.06</p>
+    <p style="margin-top:8px; font-size:11px; color:#555;">Powered by <a href="https://openai.com/codex">OpenAI Codex</a></p>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>孙启航 · 基础大模型部·系统工程实验室 · 2026.06</p>
-  <p style="margin-top:8px">Powered by <a href="https://openai.com/codex">OpenAI Codex</a> + <a href="#">EvoLink</a></p>
-</footer>
-
-<!-- SCROLL ANIMATION -->
+<!-- JS: 键盘导航 + 滚动指示器 + 动画 -->
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+(function() {
+  const sections = document.querySelectorAll('section');
+  const total = sections.length;
+  let current = 0;
+
+  // Build page indicator
+  const indicator = document.getElementById('pageIndicator');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.dataset.idx = i;
+    d.addEventListener('click', () => sections[i].scrollIntoView({ behavior: 'smooth' }));
+    indicator.appendChild(d);
+  }
+  const dots = indicator.querySelectorAll('.dot');
+
+  // Update active dot on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = Array.from(sections).indexOf(e.target);
+        if (idx !== -1) {
+          current = idx;
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+        // fade-in
+        e.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => observer.observe(s));
+
+  // Keyboard navigation (left/right + up/down)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      if (current < total - 1) { current++; sections[current].scrollIntoView({ behavior: 'smooth' }); }
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (current > 0) { current--; sections[current].scrollIntoView({ behavior: 'smooth' }); }
+    }
+  });
+})();
 </script>
 
 </body>
