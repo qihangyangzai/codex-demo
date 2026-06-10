@@ -130,30 +130,47 @@ footer a{color:var(--green);text-decoration:none}
   </div>
 </section>
 
-<!-- P1: RESULT -->
+<!-- P1: VERIFICATION -->
 <section id="s01">
   <div class="ctr fi">
-    <div class="split">
-      <div>
-        <div class="sn">01 / VERIFICATION</div>
-        <div class="st">核心链路全通</div>
-        <div class="div"></div>
-        <div class="code">
-          <span class="c"># 核心验证链路</span><br>
-          vLLM 启动 → completion → task 分发<br>
-          → trajectory → reward<br>
-          → 训练数据 → actor 更新<br><br>
-          <span class="ok">✓ 全部通过</span>
-        </div>
+    <div class="sn">01 / VERIFICATION · 2026.06.11</div>
+    <div class="st">核心链路全通</div>
+    <div class="sd">// AI 自主运行 5 小时 19 分，20 次迭代，0 人工干预</div>
+    <div class="div"></div>
+    
+    <!-- 数据四联卡 -->
+    <div class="stats" style="grid-template-columns:repeat(4,1fr);margin-top:36px">
+      <div class="stat" style="border-left:3px solid var(--cyan)">
+        <div class="n c" style="font-size:48px">5h19m</div>
+        <div class="l">AI 自主运行</div>
       </div>
-      <div style="display:flex;flex-direction:column;justify-content:flex-start;padding-top:120px">
-        <div class="stats" style="grid-template-columns:1fr 1fr;margin:0">
-          <div class="stat"><div class="n c">5h19m</div><div class="l">AI 自主运行</div></div>
-          <div class="stat"><div class="n g">20</div><div class="l">拉起训练次数</div></div>
-          <div class="stat"><div class="n y">15</div><div class="l">改动文件数</div></div>
-          <div class="stat"><div class="n g">0</div><div class="l">人工干预</div></div>
-        </div>
+      <div class="stat" style="border-left:3px solid var(--green)">
+        <div class="n g" style="font-size:48px">20</div>
+        <div class="l">拉起训练次数</div>
       </div>
+      <div class="stat" style="border-left:3px solid var(--yellow)">
+        <div class="n y" style="font-size:48px">15</div>
+        <div class="l">改动文件数</div>
+      </div>
+      <div class="stat" style="border-left:3px solid var(--green)">
+        <div class="n g" style="font-size:48px">0</div>
+        <div class="l">人工干预</div>
+      </div>
+    </div>
+    
+    <!-- 终端窗口 -->
+    <div class="code" style="margin-top:36px">
+      <span class="c"># 核心验证链路</span><br>
+      vLLM 启动 → completion → task 分发<br>
+      → trajectory → reward<br>
+      → 训练数据 → actor 更新<br><br>
+      <span class="ok">✓ 全部通过</span>
+    </div>
+    
+    <!-- 底部结论条 -->
+    <div style="margin-top:32px;background:rgba(0,245,138,0.05);border:1px solid rgba(0,245,138,0.15);border-radius:12px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--green);letter-spacing:1px">[✓] VERIFICATION · ALL_PASSED</div>
+      <div style="font-size:14px;color:var(--dim)">20:18 → 01:37 · 睡觉时跑完</div>
     </div>
   </div>
 </section>
