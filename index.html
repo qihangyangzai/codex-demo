@@ -214,54 +214,66 @@ footer a{color:var(--green);text-decoration:none}
 <!-- P4b: MOBILE SYNC -->
 <section id="s04b">
   <div class="ctr fi">
-    <div class="sn">04B / MOBILE SYNC</div>
+    <div class="sn">04B / MOBILE SYNC · 2026.06</div>
     <div class="st">在家就能<br><span style="color:var(--green)">训练大模型</span></div>
-    <div class="sd">手机 → 公司特区电脑 → 远程开发机<br>三链路打通，睡觉时 AI 在干活。</div>
+    <div class="sd">// 手机 → 公司特区电脑 → 远程开发机<br>// 三链路打通，睡觉时 AI 在干活</div>
     <div class="div"></div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 32px;margin-top:36px">
-      <div style="display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:32px">
-        <div style="text-align:center;flex:1;min-width:140px">
-          <div style="font-size:56px;margin-bottom:16px">📱</div>
-          <div style="font-weight:800;font-size:18px;margin-bottom:8px">手机</div>
-          <div style="font-size:14px;color:var(--dim)">随时随地发指令</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-top:8px;padding:4px 12px;background:rgba(46,217,255,0.08);border:1px solid rgba(46,217,255,0.2);border-radius:100px;display:inline-block">🏠 家里</div>
-        </div>
-        <div style="font-size:32px;color:var(--green)">→</div>
-        <div style="text-align:center;flex:1;min-width:140px">
-          <div style="font-size:56px;margin-bottom:16px">🖥️</div>
-          <div style="font-weight:800;font-size:18px;margin-bottom:8px">特区电脑</div>
-          <div style="font-size:14px;color:var(--dim)">Codex 运行环境</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-top:8px;padding:4px 12px;background:rgba(46,217,255,0.08);border:1px solid rgba(46,217,255,0.2);border-radius:100px;display:inline-block">🏢 公司</div>
-        </div>
-        <div style="font-size:32px;color:var(--green)">→</div>
-        <div style="text-align:center;flex:1;min-width:140px">
-          <div style="font-size:56px;margin-bottom:16px">⚡</div>
-          <div style="font-weight:800;font-size:18px;margin-bottom:8px">远程开发机</div>
-          <div style="font-size:14px;color:var(--dim)">昇腾 910C 集群</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-top:8px;padding:4px 12px;background:rgba(46,217,255,0.08);border:1px solid rgba(46,217,255,0.2);border-radius:100px;display:inline-block">☁️ 集群</div>
-        </div>
+    
+    <!-- 终端窗口：三链路架构 -->
+    <div class="code" style="margin-top:36px;background:#0d1117;border:1px solid var(--border);border-radius:12px;padding:28px;font-family:'JetBrains Mono',monospace;font-size:16px;line-height:1.9;overflow-x:auto">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(43,48,46,0.5)">
+        <div style="width:12px;height:12px;border-radius:50%;background:#ff5f57"></div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#febc2e"></div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#28c840"></div>
+        <span style="margin-left:12px;color:var(--dim);font-size:13px">codex · mobile-sync-architecture</span>
       </div>
-      <div style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--green);letter-spacing:1px">SSH TUNNEL + CODEX SYNC</div>
-        <div style="font-size:13px;color:var(--dim);margin-top:8px">移动端和电脑端干同样的活 · 不是远程桌面，是真正的同步协作</div>
+      <div style="color:var(--dim)"># 三链路架构</div>
+      <div style="margin:12px 0">
+        <span style="color:var(--green)">$</span> <span style="color:var(--text)">手机</span> <span style="color:var(--dim)">──SSH──▶</span> <span style="color:var(--cyan)">特区电脑</span> <span style="color:var(--dim)">──SSH──▶</span> <span style="color:var(--yellow)">远程开发机</span>
+      </div>
+      <div style="margin:8px 0;padding-left:24px">
+        <span style="color:var(--dim)">├── 📱 家里（发指令）</span>
+      </div>
+      <div style="margin:8px 0;padding-left:24px">
+        <span style="color:var(--dim)">├── 🏢 公司（Codex 运行）</span>
+      </div>
+      <div style="margin:8px 0;padding-left:24px">
+        <span style="color:var(--dim)">└── ☁️ 集群（昇腾 910C）</span>
+      </div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(43,48,46,0.5)">
+        <span style="color:var(--green)">$</span> <span style="color:var(--text)">codex --sync-mode mobile</span>
+      </div>
+      <div style="margin:8px 0">
+        <span style="color:var(--green)">✓</span> <span style="color:var(--dim)">移动端和电脑端干同样的活</span>
+      </div>
+      <div style="margin:8px 0">
+        <span style="color:var(--green)">✓</span> <span style="color:var(--dim)">不是远程桌面，是真正的同步协作</span>
       </div>
     </div>
+    
+    <!-- 数据三联卡 -->
     <div class="stats" style="grid-template-columns:1fr 1fr 1fr;margin-top:32px">
-      <div class="stat">
-        <div style="font-size:32px;margin-bottom:12px">🔄</div>
-        <div style="font-weight:800;margin-bottom:8px">移动端同步</div>
+      <div class="stat" style="text-align:left;padding:28px;border-left:3px solid var(--green)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);margin-bottom:12px;letter-spacing:1px">MOBILE SYNC</div>
+        <div style="font-weight:800;font-size:20px;margin-bottom:8px">移动端同步</div>
         <div class="l">手机发指令，电脑实时同步</div>
       </div>
-      <div class="stat">
-        <div style="font-size:32px;margin-bottom:12px">🌙</div>
-        <div style="font-weight:800;margin-bottom:8px">异步执行</div>
+      <div class="stat" style="text-align:left;padding:28px;border-left:3px solid var(--cyan)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-bottom:12px;letter-spacing:1px">ASYNC EXEC</div>
+        <div style="font-weight:800;font-size:20px;margin-bottom:8px">异步执行</div>
         <div class="l">睡觉时 AI 在干活</div>
       </div>
-      <div class="stat">
-        <div style="font-size:32px;margin-bottom:12px">🏠</div>
-        <div style="font-weight:800;margin-bottom:8px">在家训练</div>
+      <div class="stat" style="text-align:left;padding:28px;border-left:3px solid var(--yellow)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow);margin-bottom:12px;letter-spacing:1px">REMOTE TRAIN</div>
+        <div style="font-weight:800;font-size:20px;margin-bottom:8px">在家训练</div>
         <div class="l">突破物理位置限制</div>
       </div>
+    </div>
+    
+    <!-- 底部结论条 -->
+    <div style="margin-top:32px;background:rgba(0,245,138,0.05);border:1px solid rgba(0,245,138,0.15);border-radius:12px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--green);letter-spacing:1px">[✓] MOBILE_SYNC · THREE_LINK_ARCHITECTURE</div>
+      <div style="font-size:14px;color:var(--dim)">节省工程师注意力时间 > 执行时间</div>
     </div>
   </div>
 </section>
