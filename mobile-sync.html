@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移动端同步 · 三链路架构</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#070908;--card:#151716;--text:#ECEEEE;--dim:#8B9299;--border:#2B302E;--green:#00F58A;--cyan:#2ED9FF;--yellow:#FFD84D;--red:#FF5EBB}
+body{font-family:'Noto Sans SC','Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.container{max-width:1200px;margin:0 auto;padding:80px 40px}
+
+/* 标题区 */
+.header{text-align:center;margin-bottom:80px}
+.header .tag{display:inline-block;background:rgba(0,245,138,0.08);border:1px solid rgba(0,245,138,0.2);color:var(--green);font-size:14px;font-weight:700;padding:10px 24px;border-radius:100px;margin-bottom:32px;letter-spacing:2px}
+.header h1{font-size:clamp(48px,6vw,72px);font-weight:900;line-height:1.1;letter-spacing:-2px;margin-bottom:24px}
+.header h1 .hl{color:var(--green)}
+.header .sub{font-size:20px;color:var(--dim);max-width:600px;margin:0 auto;line-height:1.7}
+
+/* 三链路图 */
+.arch-diagram{position:relative;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:60px 40px;margin-bottom:60px;overflow:hidden}
+.arch-diagram::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,245,138,0.03) 0%,transparent 60%);z-index:0}
+
+.nodes{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.node{text-align:center;flex:1}
+.node .icon{font-size:64px;margin-bottom:20px;display:block}
+.node .name{font-size:20px;font-weight:800;margin-bottom:8px}
+.node .desc{font-size:14px;color:var(--dim);max-width:180px;margin:0 auto}
+.node .location{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-top:12px;padding:6px 16px;background:rgba(46,217,255,0.08);border:1px solid rgba(46,217,255,0.2);border-radius:100px;display:inline-block}
+
+.arrows{display:flex;justify-content:space-around;position:relative;z-index:1;margin:40px 0}
+.arrow{text-align:center}
+.arrow .line{width:200px;height:2px;background:linear-gradient(to right,var(--green),var(--cyan));margin:0 auto 12px;position:relative}
+.arrow .line::after{content:'';position:absolute;right:-6px;top:-4px;width:0;height:0;border-left:8px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.arrow .label{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);letter-spacing:1px}
+.arrow .protocol{font-size:11px;color:var(--dim);margin-top:4px}
+
+/* 功能卡片 */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:60px}
+.feature{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;transition:border-color 0.3s,transform 0.3s}
+.feature:hover{border-color:var(--green);transform:translateY(-4px)}
+.feature .ic{font-size:40px;margin-bottom:20px}
+.feature h3{font-size:20px;font-weight:800;margin-bottom:12px}
+.feature p{font-size:16px;color:var(--dim);line-height:1.7}
+.feature .check{color:var(--green);font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:16px}
+
+/* 时间线对比 */
+.timeline-compare{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:60px}
+.timeline-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px}
+.timeline-card.old{border-color:rgba(255,94,191,0.3)}
+.timeline-card.new{border-color:rgba(0,245,138,0.3)}
+.timeline-card h3{font-size:20px;font-weight:800;margin-bottom:24px}
+.timeline-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;position:relative;padding-left:24px}
+.timeline-item::before{content:'';position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:50%;background:var(--dim)}
+.timeline-card.new .timeline-item::before{background:var(--green);box-shadow:0 0 12px rgba(0,245,138,0.4)}
+.timeline-item .time{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--cyan);min-width:60px}
+.timeline-item .content{font-size:15px;color:var(--dim)}
+.timeline-item .highlight{color:var(--text);font-weight:600}
+
+/* 核心价值 */
+.value-section{text-align:center;padding:60px 0}
+.value-section h2{font-size:36px;font-weight:900;margin-bottom:16px}
+.value-section .sub{font-size:18px;color:var(--dim);margin-bottom:40px}
+.value-badge{display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 28px;font-family:'JetBrains Mono',monospace;font-size:16px}
+.value-badge .dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* 底部 */
+.footer{text-align:center;padding:40px;font-size:13px;color:var(--dim);border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <div class="tag">MOBILE SYNC · THREE-LINK ARCHITECTURE</div>
+  <h1>在家就能<br><span class="hl">训练大模型</span></h1>
+  <p class="sub">手机 → 公司特区电脑 → 远程开发机<br>三链路打通，睡觉时 AI 在干活</p>
+</div>
+
+<!-- 三链路架构图 -->
+<div class="arch-diagram">
+  <div class="nodes">
+    <div class="node">
+      <span class="icon">📱</span>
+      <div class="name">手机</div>
+      <div class="desc">随时随地发指令</div>
+      <div class="location">🏠 家里</div>
+    </div>
+    <div class="node">
+      <span class="icon">🖥️</span>
+      <div class="name">特区电脑</div>
+      <div class="desc">Codex 运行环境</div>
+      <div class="location">🏢 公司</div>
+    </div>
+    <div class="node">
+      <span class="icon">⚡</span>
+      <div class="name">远程开发机</div>
+      <div class="desc">昇腾 910C 集群</div>
+      <div class="location">☁️ 集群</div>
+    </div>
+  </div>
+  
+  <div class="arrows">
+    <div class="arrow">
+      <div class="line"></div>
+      <div class="label">SSH TUNNEL</div>
+      <div class="protocol">加密隧道</div>
+    </div>
+    <div class="arrow">
+      <div class="line"></div>
+      <div class="label">SSH + CODEX</div>
+      <div class="protocol">任务调度</div>
+    </div>
+  </div>
+</div>
+
+<!-- 功能特性 -->
+<div class="features">
+  <div class="feature">
+    <div class="ic">🔄</div>
+    <h3>移动端同步</h3>
+    <p>手机和电脑端可以干同样的活。手机上发指令，电脑端实时同步；手机上查看日志，电脑端也能看。</p>
+    <div class="check">✅ 不是远程桌面，是真正的同步协作</div>
+  </div>
+  
+  <div class="feature">
+    <div class="ic">🌙</div>
+    <h3>异步执行</h3>
+    <p>白天你正常干活，不用管 AI。晚上手机上布置任务，睡觉时 AI 自主运行，早上起来验收结果。</p>
+    <div class="check">✅ 节省的不是执行时间，是注意力时间</div>
+  </div>
+  
+  <div class="feature">
+    <div class="ic">🏠</div>
+    <h3>在家训练</h3>
+    <p>通过手机连接公司特区电脑，再由特区电脑连接远程开发机，实现"在家就能训练大模型"。</p>
+    <div class="check">✅ 突破物理位置限制</div>
+  </div>
+</div>
+
+<!-- 时间线对比 -->
+<div class="timeline-compare">
+  <div class="timeline-card old">
+    <h3>❌ 传统方式</h3>
+    <div class="timeline-item">
+      <div class="time">09:00</div>
+      <div class="content"><span class="highlight">开始调试</span>，全程盯着</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">10:30</div>
+      <div class="content">改一个参数，跑一轮验证</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">12:00</div>
+      <div class="content">还在调试，<span class="highlight">人不能离开</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">14:00</div>
+      <div class="content">终于跑通，<span class="highlight">5 小时全投入</span></div>
+    </div>
+  </div>
+  
+  <div class="timeline-card new">
+    <h3>✅ Codex 方式</h3>
+    <div class="timeline-item">
+      <div class="time">白天</div>
+      <div class="content"><span class="highlight">正常干活</span>，不用管 AI</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">20:18</div>
+      <div class="content">手机上布置任务（<span class="highlight">1-2 分钟</span>）</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">睡觉</div>
+      <div class="content">AI 自主运行 <span class="highlight">5 小时 19 分</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">09:30</div>
+      <div class="content">打开电脑，<span class="highlight">核心链路全通</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 核心价值 -->
+<div class="value-section">
+  <h2>真正的价值</h2>
+  <p class="sub">不是"快"，是异步——睡觉时 AI 在跑</p>
+  <div class="value-badge">
+    <span class="dot"></span>
+    <span>节省工程师注意力时间 > 执行时间</span>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  孙博阳 · 基础大模型部·系统工程实验室 · 2026.06
+</div>
+
+</body>
+</html>
