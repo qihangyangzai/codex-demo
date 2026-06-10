@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>睡了一觉，代码跑通了｜Codex 自主调试实战</title>
+<title>睡了一觉，训练跑通了｜Codex 自主调试实战</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -124,8 +124,8 @@ footer a{color:var(--green);text-decoration:none}
 <section class="hero" id="s00">
   <div class="ctr">
     <div class="tag">HUAWEI · PANGU 92B · 昇腾 910C</div>
-    <h1>睡了一觉<br><span class="hl">代码跑通了</span></h1>
-    <p class="sub">周二晚上 8 点 18，手机上给 Codex 发了句"继续"，<br>就去睡了。凌晨 1 点 37，token 耗尽，任务完成。</p>
+    <h1>睡了一觉<br><span class="hl">训练跑通了</span></h1>
+    <p class="sub">周二晚上 8 点 18,手机上给 Codex 发了句"继续",<br>就去睡了。凌晨 1 点 37,token 耗尽,任务完成。</p>
     <div class="badge"><span class="dot"></span><span>20:18 → 01:37 · AI 自主运行 5h19m · 15 个文件</span></div>
   </div>
 </section>
@@ -136,7 +136,7 @@ footer a{color:var(--green);text-decoration:none}
     <div class="split">
       <div>
         <div class="sn">01 / RESULT</div>
-        <div class="st">结果：<br>核心链路<br>全通</div>
+        <div class="st">结果:<br>核心链路<br>全通</div>
         <div class="div"></div>
         <div class="code">
           <span class="c"># 核心验证链路</span><br>
@@ -166,7 +166,7 @@ footer a{color:var(--green);text-decoration:none}
         <img src="images/cluster-to-single.jpg" alt="大集群→单机">
         <div class="img-ov">
           <h2>大集群 → 单机</h2>
-          <p>Pangu 92B 减层，让模型在单机上跑起来</p>
+          <p>Pangu 92B 减层,让模型在单机上跑起来</p>
         </div>
       </div>
       <div>
@@ -174,10 +174,10 @@ footer a{color:var(--green);text-decoration:none}
         <div class="st">任务背景</div>
         <div class="div"></div>
         <div class="cards">
-          <div class="card"><div class="ic">🧠</div><div class="bd"><h4>模型</h4><p>Pangu 92B，8层剪层<br>layer 0-1 Dense，layer 2-7 MoE</p></div></div>
-          <div class="card"><div class="ic">💻</div><div class="bd"><h4>硬件</h4><p>昇腾 910C，2 die/卡，8 卡 = 16 die</p></div></div>
+          <div class="card"><div class="ic">🧠</div><div class="bd"><h4>模型</h4><p>Pangu 92B,8层剪层<br>layer 0-1 Dense,layer 2-7 MoE</p></div></div>
+          <div class="card"><div class="ic">💻</div><div class="bd"><h4>硬件</h4><p>昇腾 910C,2 die/卡,8 卡 = 16 die</p></div></div>
           <div class="card"><div class="ic">⚙️</div><div class="bd"><h4>并行</h4><p>Rollout: TP=8, DP=2, EP=16<br>Actor: TP=4, PP=4</p></div></div>
-          <div class="card"><div class="ic">📁</div><div class="bd"><h4>改动</h4><p>15 个文件，全链路改造</p></div></div>
+          <div class="card"><div class="ic">📁</div><div class="bd"><h4>改动</h4><p>15 个文件,全链路改造</p></div></div>
         </div>
       </div>
     </div>
@@ -191,13 +191,13 @@ footer a{color:var(--green);text-decoration:none}
       <div>
         <div class="sn">03 / TIMELINE</div>
         <div class="st">发生了什么</div>
-        <div class="sd">从任务下达到 token 耗尽，<br>真实时间线。</div>
+        <div class="sd">从任务下达到 token 耗尽,<br>真实时间线。</div>
         <div class="tl">
-          <div class="tl-i"><div class="t">6/9 周一 11:30</div><div class="tt">领导布置任务</div><div class="d">Pangu 92B 减层，16die 黑盒 E2E</div></div>
-          <div class="tl-i"><div class="t">6/9 周一下午</div><div class="tt">Codex 辅助改动</div><div class="d">建立上下文，部分文件已修改</div></div>
-          <div class="tl-i"><div class="t">6/10 周二下午</div><div class="tt">终端断开，任务停滞</div><div class="d">开发环境切换</div></div>
+          <div class="tl-i"><div class="t">6/9 周一 11:30</div><div class="tt">领导布置任务</div><div class="d">Pangu 92B 减层,16die 黑盒 E2E</div></div>
+          <div class="tl-i"><div class="t">6/9 周一下午</div><div class="tt">Codex 辅助改动</div><div class="d">建立上下文,部分文件已修改</div></div>
+          <div class="tl-i"><div class="t">6/10 周二下午</div><div class="tt">终端断开,任务停滞</div><div class="d">开发环境切换</div></div>
           <div class="tl-i"><div class="t">6/10 20:18</div><div class="tt">手机发了句"继续"</div><div class="d">然后就去睡觉了</div></div>
-          <div class="tl-i"><div class="t">6/11 01:37</div><div class="tt">Token 耗尽，任务完成</div><div class="d">AI 自主运行 5h19m</div></div>
+          <div class="tl-i"><div class="t">6/11 01:37</div><div class="tt">Token 耗尽,任务完成</div><div class="d">AI 自主运行 5h19m</div></div>
         </div>
       </div>
       <div class="img-p">
@@ -228,7 +228,7 @@ footer a{color:var(--green);text-decoration:none}
         <div class="div"></div>
         <div class="cards">
           <div class="card"><div class="ic">📱</div><div class="bd"><h4>手机远程调度</h4><p>SSH 隧道 + 长程运行<br>手机向内网开发机发指令</p></div></div>
-          <div class="card"><div class="ic">🔄</div><div class="bd"><h4>自主迭代</h4><p>改 bug → 验证 → 读日志<br>→ 发现问题 → 再改，20 次循环</p></div></div>
+          <div class="card"><div class="ic">🔄</div><div class="bd"><h4>自主迭代</h4><p>改 bug → 验证 → 读日志<br>→ 发现问题 → 再改,20 次循环</p></div></div>
           <div class="card"><div class="ic">🧠</div><div class="bd"><h4>上下文延续</h4><p>只说了一句"继续"<br>AI 自动理解任务目标</p></div></div>
         </div>
       </div>
@@ -241,13 +241,13 @@ footer a{color:var(--green);text-decoration:none}
   <div class="ctr fi">
     <div class="sn">05 / CHALLENGES</div>
     <div class="st">配置迁移难点</div>
-    <div class="sd">不是算法问题，<br>全是配置通路问题。</div>
+    <div class="sd">不是算法问题,<br>全是配置通路问题。</div>
     <div class="stats" style="grid-template-columns:1fr 1fr 1fr">
-      <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🔗</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">mbridge 命名</div><div class="l">单数 vs 复数，映射不匹配</div></div>
+      <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🔗</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">mbridge 命名</div><div class="l">单数 vs 复数,映射不匹配</div></div>
       <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🔢</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">FP16 精度</div><div class="l">loss scale 未初始化</div></div>
       <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">📏</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">Token 超限</div><div class="l">余量 2048 不够</div></div>
       <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🌐</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">代理干扰</div><div class="l">Ray worker 内网走代理</div></div>
-      <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🧩</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">Reward 格式</div><div class="l">按字符拆分，需 JSON 解析</div></div>
+      <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">🧩</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">Reward 格式</div><div class="l">按字符拆分,需 JSON 解析</div></div>
       <div class="stat" style="text-align:left;padding:28px"><div style="font-size:36px;margin-bottom:14px">❌</div><div style="font-weight:800;margin-bottom:8px;font-size:20px">Trajectory</div><div class="l">不处理 None 轮次</div></div>
     </div>
   </div>
@@ -258,11 +258,11 @@ footer a{color:var(--green);text-decoration:none}
   <div class="ctr fi">
     <div class="sn">06 / CORE FIXES</div>
     <div class="st">核心改动</div>
-    <div class="sd">三个最关键的问题，<br>不修就跑不起来。</div>
+    <div class="sd">三个最关键的问题,<br>不修就跑不起来。</div>
     <div class="cards">
-      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>mbridge 映射兼容</h4><p>MTP 禁用后，Megatron 用 <code>final_layernorm</code>，<br>映射表只有 <code style="color:var(--red)">final_layernorms.0</code>。<br>Codex 加了一行判断自动替换。</p></div></div>
-      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>FP16 精度配置</h4><p>添加 <code>fp16: true</code>，初始化 <code>grad_scale_func</code>，<br>注释掉不兼容的 <code style="color:var(--red)">precision_aware_optimizer</code>。</p></div></div>
-      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>Token 长度余量</h4><p>余量从 <code style="color:var(--red)">2048</code> 改为 <code style="color:var(--green)">16384</code>，<br>避免 prompt+response 超限。</p></div></div>
+      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>mbridge 映射兼容</h4><p>MTP 禁用后,Megatron 用 <code>final_layernorm</code>,<br>映射表只有 <code style="color:var(--red)">final_layernorms.0</code>。<br>Codex 加了一行判断自动替换。</p></div></div>
+      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>FP16 精度配置</h4><p>添加 <code>fp16: true</code>,初始化 <code>grad_scale_func</code>,<br>注释掉不兼容的 <code style="color:var(--red)">precision_aware_optimizer</code>。</p></div></div>
+      <div class="card"><div class="ic" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px">P0</div><div class="bd"><h4>Token 长度余量</h4><p>余量从 <code style="color:var(--red)">2048</code> 改为 <code style="color:var(--green)">16384</code>,<br>避免 prompt+response 超限。</p></div></div>
     </div>
   </div>
 </section>
@@ -272,7 +272,7 @@ footer a{color:var(--green);text-decoration:none}
   <div class="ctr fi">
     <div class="sn">07 / ALL FIXES</div>
     <div class="st">全部改动</div>
-    <div class="sd">20 次迭代，15 个文件。</div>
+    <div class="sd">20 次迭代,15 个文件。</div>
     <table class="ft">
       <thead><tr><th>它看到的</th><th>它怎么修的</th></tr></thead>
       <tbody>
@@ -302,7 +302,7 @@ footer a{color:var(--green);text-decoration:none}
         <div class="cards">
           <div class="card"><div class="ic">✅</div><div class="bd"><h4>vLLM 启动</h4><p>DP0/DP1 正常启动</p></div></div>
           <div class="card"><div class="ic">✅</div><div class="bd"><h4>Task 分发</h4><p>dispatch_task_list completed</p></div></div>
-          <div class="card"><div class="ic">✅</div><div class="bd"><h4>Reward 执行</h4><p>真实 pytest 参数，不再按字符拆分</p></div></div>
+          <div class="card"><div class="ic">✅</div><div class="bd"><h4>Reward 执行</h4><p>真实 pytest 参数,不再按字符拆分</p></div></div>
           <div class="card"><div class="ic">✅</div><div class="bd"><h4>Actor 更新</h4><p>train after update actor</p></div></div>
         </div>
       </div>
@@ -310,7 +310,7 @@ footer a{color:var(--green);text-decoration:none}
         <img src="images/morning.jpg" alt="早上验证">
         <div class="img-ov">
           <h2>第二天打开电脑</h2>
-          <p>核心链路，全通。</p>
+          <p>核心链路,全通。</p>
         </div>
       </div>
     </div>
@@ -339,7 +339,7 @@ footer a{color:var(--green);text-decoration:none}
       </div>
     </div>
     <div style="margin-top:36px;text-align:center">
-      <div class="badge" style="margin:0 auto"><span class="dot"></span><span>真正价值不是"快"，是异步——睡觉时 AI 在跑。</span></div>
+      <div class="badge" style="margin:0 auto"><span class="dot"></span><span>真正价值不是"快",是异步--睡觉时 AI 在跑。</span></div>
     </div>
   </div>
 </section>
@@ -369,8 +369,8 @@ footer a{color:var(--green);text-decoration:none}
 <!-- P11: CTA - 首尾呼应 -->
 <section class="cta" id="s11">
   <div class="ctr fi">
-    <div class="q">"睡了一觉，<br><span style="color:var(--green)">代码跑通了。</span>"</div>
-    <p class="sub">给 AI 布了个任务，然后去睡觉。<br>第二天起来，15 个文件改好了，核心链路全通。</p>
+    <div class="q">"睡了一觉,<br><span style="color:var(--green)">训练跑通了。</span>"</div>
+    <p class="sub">给 AI 布了个任务,然后去睡觉。<br>第二天起来,15 个文件改好了,核心链路全通。</p>
     <div class="badge" style="margin:0 auto"><span class="dot"></span><span>基于真实复盘 · Pangu 92B · 16die · 昇腾 910C</span></div>
     <p style="margin-top:60px;font-size:16px;color:var(--dim)">孙博阳 · 基础大模型部·系统工程实验室 · 2026.06</p>
     <p style="margin-top:10px;font-size:13px;color:#444">Powered by <a href="https://openai.com/codex">OpenAI Codex</a></p>
